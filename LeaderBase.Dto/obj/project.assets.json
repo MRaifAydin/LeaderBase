@@ -1,30 +1,11 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {
-      "LeaderBase.Core/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "compile": {
-          "bin/placeholder/LeaderBase.Core.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/LeaderBase.Core.dll": {}
-        }
-      }
-    }
+    "net6.0": {}
   },
-  "libraries": {
-    "LeaderBase.Core/1.0.0": {
-      "type": "project",
-      "path": "../LeaderBase.Core/LeaderBase.Core.csproj",
-      "msbuildProject": "../LeaderBase.Core/LeaderBase.Core.csproj"
-    }
-  },
+  "libraries": {},
   "projectFileDependencyGroups": {
-    "net6.0": [
-      "LeaderBase.Core >= 1.0.0"
-    ]
+    "net6.0": []
   },
   "packageFolders": {
     "C:\\Users\\mert5\\.nuget\\packages\\": {},
@@ -56,11 +37,7 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {
-            "C:\\Users\\mert5\\source\\repos\\LeaderBase\\LeaderBase.Core\\LeaderBase.Core.csproj": {
-              "projectPath": "C:\\Users\\mert5\\source\\repos\\LeaderBase\\LeaderBase.Core\\LeaderBase.Core.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
