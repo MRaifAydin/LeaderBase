@@ -1,15 +1,13 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using LeaderBase.Core.Common;
 
 namespace LeaderBase.Core.Entities
 {
-    public class Leader
+    public class Leader : BaseEntity
     {
 
         public string Name { get; set; }

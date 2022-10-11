@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+﻿using LeaderBase.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LeaderBase.Core.Entities
 {
-    public class Person
+    public class Person : BaseEntity
     {
         public string Name { get; set; }
 
