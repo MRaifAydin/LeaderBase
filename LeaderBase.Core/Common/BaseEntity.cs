@@ -12,26 +12,20 @@ namespace LeaderBase.Core.Common
     {
         [BsonRepresentation(BsonType.ObjectId)]
         [BsonId]
-        [BsonElement(Order = 0)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [BsonRepresentation(BsonType.DateTime)]
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
-        [BsonElement(Order = 1001)]
         public DateTime? CreatedAt { get; set; }
 
         [BsonRepresentation(BsonType.DateTime)]
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
-        [BsonElement(Order = 1002)]
         public DateTime? LastModifiedAt { get; set; }
 
-        [BsonElement(Order = 1003)]
-        public long? CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
 
-        [BsonElement(Order = 1004)]
-        public long? LastModifiedBy { get; set; }
+        public string? LastModifiedBy { get; set; }
 
-        [BsonElement(Order = 1005)]
         [BsonRepresentation(BsonType.Boolean)]
         public bool IsDeleted { get; set; }
     }

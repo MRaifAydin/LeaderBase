@@ -1,4 +1,5 @@
 ﻿using LeaderBase.Core.Common;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
@@ -15,74 +16,89 @@ namespace LeaderBase.Repository.Common
         private readonly IMongoClient _mongoClient;
         private readonly IMongoCollection<TSource> _mongoCollection;
 
-        public BaseRepository(IMongoClient mongoClient)
+        public BaseRepository(IOptions<LeaderBaseDbSettings> _dbSettings)
         {
-            _mongoClient = mongoClient;
-            _mongoCollection = mongoClient.GetDatabase("LeaderBase").GetCollection<TSource>(typeof(TSource).Name.ToLowerInvariant());
+            _mongoClient = new MongoClient(_dbSettings.Value.ConnectionString);
+            _mongoCollection = _mongoClient.GetDatabase(_dbSettings.Value.DatabaseName)
+                .GetCollection<TSource>(typeof(TSource).Name);
         }
 
-        public IMongoQueryable<TSource> GetAll() => GetAllWithDeleted().Where(x => !x.IsDeleted);
-
-        public IMongoQueryable<TSource> GetAllWithDeleted()
+        TSource FillEntity(TSource entity)
         {
-            return _mongoCollection.AsQueryable();
+            if (entity.CreatedAt == null)
+            {
+                entity.CreatedAt = DateTime.UtcNow;
+                entity.CreatedBy = "admin";
+            }
+            else
+            {
+                entity.LastModifiedAt = DateTime.UtcNow;
+                entity.LastModifiedBy = "admin";
+            }
+
+            return entity;
         }
 
-        public IMongoQueryable<TSource> GetByIdWithDeleted(string id)
+        IEnumerable<TSource> FillEntities(IEnumerable<TSource> entities)
         {
-            return _mongoCollection.AsQueryable().Where(x => x.Id == id);
+            return entities.Select(entity => FillEntity(entity));
         }
 
-        public IMongoQueryable<TSource> Where(Expression<Func<TSource, bool>> predicate)
+
+        /// <summary>
+        /// Returns all documents in a collection.
+        /// </summary>
+        public List<TSource> GetAll() => _mongoCollection.Find(_ => true).ToList();
+
+        /// <summary>
+        /// Returns a specified document in a collection by id.
+        /// </summary>
+        public TSource GetById(string id) => _mongoCollection.Find(x => x.Id == id).FirstOrDefault();
+
+        public async Task InsertOneAsync(TSource entity)
         {
-            return GetAll().Where(predicate);
+            await _mongoCollection.InsertOneAsync(FillEntity(entity));
         }
 
-        public Task InsertOne(TSource entity)
+        public async Task InsertMany(IEnumerable<TSource> entities)
         {
-            return _mongoCollection.InsertOneAsync(entity);
-        }
-
-        public Task InsertMany(IEnumerable<TSource> entity)
-        {
-            return _mongoCollection.InsertManyAsync(entity);
+            await _mongoCollection.InsertManyAsync(FillEntities(entities));
         }
 
         public Task<ReplaceOneResult> UpsertAsync(TSource entity)
         {
             var filter = Builders<TSource>.Filter.Eq(x => x.Id, entity.Id);
-            return _mongoCollection.ReplaceOneAsync(filter, entity,
+
+            var testEntity = GetById(entity.Id);
+            entity.CreatedAt = testEntity.CreatedAt;
+            entity.CreatedBy = testEntity.CreatedBy;
+            entity.LastModifiedAt = testEntity.LastModifiedAt;
+            entity.LastModifiedBy = testEntity.LastModifiedBy;
+
+            return _mongoCollection.ReplaceOneAsync(filter, FillEntity(entity),
             new ReplaceOptions
             {
                 IsUpsert = true
             });
         }
 
-        public Task<UpdateResult> DeleteAsync(string id)
+        public Task DeleteAsync(string id)
         {
-            var updateDefinitions = new List<UpdateDefinition<TSource>>
-            {
-                Builders<TSource>.Update.Set(x => x.IsDeleted, true),
-                Builders<TSource>.Update.Set(x => x.LastModifiedAt, DateTime.Now)
-            };
-
-            var update = Builders<TSource>.Update.Combine(updateDefinitions);
-            var filter = Builders<TSource>.Filter.Eq(x => x.Id, id);
-            return _mongoCollection.UpdateOneAsync(filter, update);
+            return _mongoCollection.DeleteOneAsync(x => x.Id == id);
         }
 
-        public Task<UpdateResult> DeleteAsync(Expression<Func<TSource, bool>> predicate)
-        {
+        //public Task<UpdateResult> DeleteAsync(Expression<Func<TSource, bool>> predicate)
+        //{
 
-            var updateDefinitions = new List<UpdateDefinition<TSource>>
-            {
-                Builders<TSource>.Update.Set(x => x.IsDeleted, true),
-                Builders<TSource>.Update.Set(x => x.LastModifiedAt, DateTime.Now)
-            };
+        //    var updateDefinitions = new List<UpdateDefinition<TSource>>
+        //    {
+        //        Builders<TSource>.Update.Set(x => x.IsDeleted, true),
+        //        Builders<TSource>.Update.Set(x => x.LastModifiedAt, DateTime.Now)
+        //    };
 
-            var update = Builders<TSource>.Update.Combine(updateDefinitions);
-            var filter = predicate;
-            return _mongoCollection.UpdateManyAsync(filter, update);
-        }
+        //    var update = Builders<TSource>.Update.Combine(updateDefinitions);
+        //    var filter = predicate;
+        //    return _mongoCollection.UpdateManyAsync(filter, update);
+        //}
     }
 }

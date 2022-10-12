@@ -1,8 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "2TN0BN1IBEbI/kOb2Rjasnk6QHEeHz+vyu1Scl1xV9wYYWrDyc6X4a0/0cmi2259MKXB+Q/q+zg+lBLpg/qKcw==",
+  "dgSpecHash": "/AqcZxZlH4iYa8SYZ9CNyIO6kYJix8t6lFMwpuNRdeighnewYEud7eb0vbNvB++CEZORFubR0rN+357mePPwfg==",
   "success": true,
   "projectFilePath": "C:\\Users\\mert5\\source\\repos\\LeaderBase\\LeaderBase.Dto\\LeaderBase.DTO.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\mert5\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.1\\microsoft.extensions.dependencyinjection.6.0.1.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\mongodb.bson\\2.17.1\\mongodb.bson.2.17.1.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\mongodb.driver\\2.17.1\\mongodb.driver.2.17.1.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\mongodb.driver.core\\2.17.1\\mongodb.driver.core.2.17.1.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\mongodb.libmongocrypt\\1.5.5\\mongodb.libmongocrypt.1.5.5.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\sharpcompress\\0.30.1\\sharpcompress.0.30.1.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\system.security.accesscontrol\\5.0.0\\system.security.accesscontrol.5.0.0.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

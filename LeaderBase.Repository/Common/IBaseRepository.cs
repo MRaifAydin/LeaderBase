@@ -12,18 +12,17 @@ namespace LeaderBase.Repository.Common
 {
     public interface IBaseRepository<TSource> where TSource : BaseEntity
     {
-        IMongoQueryable<TSource> GetAll();
-        IMongoQueryable<TSource> GetAllWithDeleted();
-        IMongoQueryable<TSource> Where(Expression<Func<TSource, bool>> predicate);
-        IMongoQueryable<TSource> GetById(string id) => Where(x => x.Id == id);
-        IMongoQueryable<TSource> GetByIdWithDeleted(string id);
+        List<TSource> GetAll();
 
-        Task InsertOne(TSource entity);
+        TSource GetById(string id);
+
+
+        Task InsertOneAsync(TSource entity);
         Task InsertMany(IEnumerable<TSource> entity);
 
         Task<ReplaceOneResult> UpsertAsync(TSource entity);
 
-        Task<UpdateResult> DeleteAsync(string id);
-        Task<UpdateResult> DeleteAsync(Expression<Func<TSource, bool>> predicate);
+        Task DeleteAsync(string id);
+        //Task<UpdateResult> DeleteAsync(Expression<Func<TSource, bool>> predicate);
     }
 }

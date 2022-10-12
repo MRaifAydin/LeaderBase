@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaderBase.Core", "LeaderBase.Core\LeaderBase.Core.csproj", "{AF8373C9-33FD-4CA8-89CB-DACC45A7DDFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaderBase.Core", "LeaderBase.Core\LeaderBase.Core.csproj", "{AF8373C9-33FD-4CA8-89CB-DACC45A7DDFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaderBase.Repository", "LeaderBase.Repository\LeaderBase.Repository.csproj", "{310932E1-054B-4751-9441-49521CCCFBF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaderBase.Repository", "LeaderBase.Repository\LeaderBase.Repository.csproj", "{310932E1-054B-4751-9441-49521CCCFBF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaderBase.DTO", "LeaderBase.Dto\LeaderBase.DTO.csproj", "{75F4510D-56B3-4AE2-838A-12A74F26E0FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaderBase.DTO", "LeaderBase.Dto\LeaderBase.DTO.csproj", "{75F4510D-56B3-4AE2-838A-12A74F26E0FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaderBase.Business", "LeaderBase.Business\LeaderBase.Business.csproj", "{A6EC9257-60FD-4F76-A685-4221DD45ACBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaderBase.Business", "LeaderBase.Business\LeaderBase.Business.csproj", "{A6EC9257-60FD-4F76-A685-4221DD45ACBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaderBase.API", "LeaderBase.API\LeaderBase.API.csproj", "{C5F74EDF-47D3-4B29-9B03-5D2D7EE7B866}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{A6EC9257-60FD-4F76-A685-4221DD45ACBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6EC9257-60FD-4F76-A685-4221DD45ACBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6EC9257-60FD-4F76-A685-4221DD45ACBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5F74EDF-47D3-4B29-9B03-5D2D7EE7B866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5F74EDF-47D3-4B29-9B03-5D2D7EE7B866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5F74EDF-47D3-4B29-9B03-5D2D7EE7B866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5F74EDF-47D3-4B29-9B03-5D2D7EE7B866}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
