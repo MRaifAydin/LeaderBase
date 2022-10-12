@@ -1,6 +1,7 @@
 using LeaderBase.Core.Common;
 using LeaderBase.Repository.Abstract;
 using LeaderBase.Repository.Concrete;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.Configure<LeaderBaseDbSettings>
     (builder.Configuration.GetSection("LeaderBaseDatabase"));
 
 builder.Services.AddSingleton<PersonRepository>();
+builder.Services.AddSingleton<LeaderRepository>();
 
 var app = builder.Build();
 

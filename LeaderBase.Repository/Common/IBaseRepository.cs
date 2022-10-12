@@ -17,12 +17,12 @@ namespace LeaderBase.Repository.Common
         TSource GetById(string id);
 
 
-        Task InsertOneAsync(TSource entity);
-        Task InsertMany(IEnumerable<TSource> entity);
+        Task<TSource> InsertOneAsync(TSource entity);
+        Task<List<TSource>> InsertMany(IEnumerable<TSource> entity);
 
         Task<ReplaceOneResult> UpsertAsync(TSource entity);
 
-        Task DeleteAsync(string id);
+        Task<DeleteResult> DeleteAsync(string id);
         //Task<UpdateResult> DeleteAsync(Expression<Func<TSource, bool>> predicate);
     }
 }

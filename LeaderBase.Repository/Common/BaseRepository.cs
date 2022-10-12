@@ -25,7 +25,7 @@ namespace LeaderBase.Repository.Common
 
         TSource FillEntity(TSource entity)
         {
-            if (entity.CreatedAt == null)
+            if (entity.Id == null)
             {
                 entity.CreatedAt = DateTime.UtcNow;
                 entity.CreatedBy = "admin";
@@ -53,16 +53,25 @@ namespace LeaderBase.Repository.Common
         /// <summary>
         /// Returns a specified document in a collection by id.
         /// </summary>
-        public TSource GetById(string id) => _mongoCollection.Find(x => x.Id == id).FirstOrDefault();
-
-        public async Task InsertOneAsync(TSource entity)
+        public TSource GetById(string id)
         {
-            await _mongoCollection.InsertOneAsync(FillEntity(entity));
+            TSource entity = _mongoCollection.Find(x => x.Id == id).FirstOrDefault();
+            if (entity == null)
+            { return Activator.CreateInstance<TSource>(); }
+            else
+            { return entity; }
         }
 
-        public async Task InsertMany(IEnumerable<TSource> entities)
+        public async Task<TSource> InsertOneAsync(TSource entity)
+        {
+            await _mongoCollection.InsertOneAsync(FillEntity(entity));
+            return GetById(entity.Id);
+        }
+
+        public async Task<List<TSource>> InsertMany(IEnumerable<TSource> entities)
         {
             await _mongoCollection.InsertManyAsync(FillEntities(entities));
+            return entities.Select(entity => GetById(entity.Id)).ToList();
         }
 
         public Task<ReplaceOneResult> UpsertAsync(TSource entity)
@@ -76,29 +85,16 @@ namespace LeaderBase.Repository.Common
             entity.LastModifiedBy = testEntity.LastModifiedBy;
 
             return _mongoCollection.ReplaceOneAsync(filter, FillEntity(entity),
-            new ReplaceOptions
-            {
-                IsUpsert = true
-            });
+             new ReplaceOptions
+             {
+                 IsUpsert = true
+             });
         }
 
-        public Task DeleteAsync(string id)
+        public async Task<DeleteResult> DeleteAsync(string id)
         {
-            return _mongoCollection.DeleteOneAsync(x => x.Id == id);
+            return await _mongoCollection.DeleteOneAsync(x => x.Id == id);
         }
 
-        //public Task<UpdateResult> DeleteAsync(Expression<Func<TSource, bool>> predicate)
-        //{
-
-        //    var updateDefinitions = new List<UpdateDefinition<TSource>>
-        //    {
-        //        Builders<TSource>.Update.Set(x => x.IsDeleted, true),
-        //        Builders<TSource>.Update.Set(x => x.LastModifiedAt, DateTime.Now)
-        //    };
-
-        //    var update = Builders<TSource>.Update.Combine(updateDefinitions);
-        //    var filter = predicate;
-        //    return _mongoCollection.UpdateManyAsync(filter, update);
-        //}
     }
 }

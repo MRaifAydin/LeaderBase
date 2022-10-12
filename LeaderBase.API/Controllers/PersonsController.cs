@@ -10,10 +10,10 @@ namespace LeaderBase.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonController : ControllerBase
+    public class PersonsController : ControllerBase
     {
         private PersonRepository _personRepository;
-        public PersonController(PersonRepository personRepository)
+        public PersonsController(PersonRepository personRepository)
         {
             _personRepository = personRepository;
         }
@@ -23,24 +23,25 @@ namespace LeaderBase.API.Controllers
             return _personRepository.GetAll();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("{id}")]
         public Person GetById(string id)
         {
             return _personRepository.GetById(id);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Insert(Person entity)
+        public async Task<IActionResult> InsertOne(Person entity)
         {
             await _personRepository.InsertOneAsync(entity);
             return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity);
         }
 
-        [HttpPost("/many")]
+        [HttpPost]
+        [Route("Many")]
         public async Task<List<Person>> InsertMany(IEnumerable<Person> entities)
         {
-            await _personRepository.InsertMany(entities);
-            return _personRepository.GetAll();
+            return await _personRepository.InsertMany(entities);
         }
 
         [HttpPut]
@@ -51,9 +52,9 @@ namespace LeaderBase.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete(string id)
+        public async Task<DeleteResult> Delete(string id)
         {
-            await _personRepository.DeleteAsync(id);
+            return await _personRepository.DeleteAsync(id);
         }
     }
 }

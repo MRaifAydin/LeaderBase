@@ -367,6 +367,19 @@
         "runtime": {
           "bin/placeholder/LeaderBase.Core.dll": {}
         }
+      },
+      "LeaderBase.DTO/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "LeaderBase.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/LeaderBase.DTO.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/LeaderBase.DTO.dll": {}
+        }
       }
     }
   },
@@ -940,12 +953,18 @@
       "type": "project",
       "path": "../LeaderBase.Core/LeaderBase.Core.csproj",
       "msbuildProject": "../LeaderBase.Core/LeaderBase.Core.csproj"
+    },
+    "LeaderBase.DTO/1.0.0": {
+      "type": "project",
+      "path": "../LeaderBase.Dto/LeaderBase.DTO.csproj",
+      "msbuildProject": "../LeaderBase.Dto/LeaderBase.DTO.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "AutoMapper >= 12.0.0",
       "LeaderBase.Core >= 1.0.0",
+      "LeaderBase.DTO >= 1.0.0",
       "Microsoft.Extensions.Options >= 6.0.0",
       "MongoDB.Driver >= 2.17.1"
     ]
@@ -983,6 +1002,9 @@
           "projectReferences": {
             "C:\\Users\\mert5\\source\\repos\\LeaderBase\\LeaderBase.Core\\LeaderBase.Core.csproj": {
               "projectPath": "C:\\Users\\mert5\\source\\repos\\LeaderBase\\LeaderBase.Core\\LeaderBase.Core.csproj"
+            },
+            "C:\\Users\\mert5\\source\\repos\\LeaderBase\\LeaderBase.Dto\\LeaderBase.DTO.csproj": {
+              "projectPath": "C:\\Users\\mert5\\source\\repos\\LeaderBase\\LeaderBase.Dto\\LeaderBase.DTO.csproj"
             }
           }
         }
@@ -1026,7 +1048,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
