@@ -1,8 +1,10 @@
+using LeaderBase.Business;
 using LeaderBase.Business.Abstract;
 using LeaderBase.Business.Concrete;
 using LeaderBase.Core.Common;
 using LeaderBase.Repository.Abstract;
 using LeaderBase.Repository.Concrete;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,10 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<LeaderBaseDbSettings>
     (builder.Configuration.GetSection("LeaderBaseDatabase"));
 
-builder.Services.AddSingleton<IPersonRepository,PersonRepository>();
-builder.Services.AddSingleton<ILeaderRepository, LeaderRepository>();
-builder.Services.AddSingleton<ILeaderService, LeaderManager>();
-builder.Services.AddSingleton<IPersonService, PersonManager>();
+BusinessDIModule.Inject(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 

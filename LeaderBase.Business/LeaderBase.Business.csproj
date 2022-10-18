@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LeaderBase.Conversion\LeaderBase.Conversion.csproj" />
     <ProjectReference Include="..\LeaderBase.Dto\LeaderBase.DTO.csproj" />
     <ProjectReference Include="..\LeaderBase.Repository\LeaderBase.Repository.csproj" />
   </ItemGroup>

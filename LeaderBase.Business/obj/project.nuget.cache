@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Ll9lr2ivhNr1JaeN3bb+W/zJz/UnUu2bMroGSw9lydeZ7uYP4PEjLSVgK1krhSUesCTcOfGVgnVsZFC9ejzqzQ==",
+  "dgSpecHash": "u1XgEbEMOjf3R4FGa/BaZDe0VF3aNey4pxoIF7r1L+sQ8fKmHBnf6isnkzOwtQNmk6gK3ybaBrkUo3cXHKa1Ag==",
   "success": true,
   "projectFilePath": "C:\\Users\\mert5\\source\\repos\\LeaderBase\\LeaderBase.Business\\LeaderBase.Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mert5\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\mert5\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\mert5\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
     "C:\\Users\\mert5\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\mert5\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",

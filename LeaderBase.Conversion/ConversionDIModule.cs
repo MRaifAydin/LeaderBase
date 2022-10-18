@@ -9,7 +9,7 @@ using LeaderBase.Conversion.MapperProfiles;
 
 namespace LeaderBase.Conversion
 {
-    public class ConversionDI
+    public class ConversionDIModule
     {
         public static void Inject(IServiceCollection services, IConfiguration configuration)
         {
