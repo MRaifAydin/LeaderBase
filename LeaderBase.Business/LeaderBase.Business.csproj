@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LeaderBase.Dto\LeaderBase.DTO.csproj" />
+    <ProjectReference Include="..\LeaderBase.Repository\LeaderBase.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

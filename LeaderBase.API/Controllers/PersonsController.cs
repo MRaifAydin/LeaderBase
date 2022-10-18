@@ -1,4 +1,6 @@
-﻿using LeaderBase.Core.Entities;
+﻿using LeaderBase.Business.Abstract;
+using LeaderBase.Core.Entities;
+using LeaderBase.DTO.Persons;
 using LeaderBase.Repository.Abstract;
 using LeaderBase.Repository.Concrete;
 using Microsoft.AspNetCore.Http;
@@ -12,49 +14,50 @@ namespace LeaderBase.API.Controllers
     [ApiController]
     public class PersonsController : ControllerBase
     {
-        private PersonRepository _personRepository;
-        public PersonsController(PersonRepository personRepository)
+        private IPersonService _personService;
+        public PersonsController(IPersonService personService)
         {
-            _personRepository = personRepository;
+            _personService = personService;
         }
+
         [HttpGet]
-        public List<Person> Get()
+        public List<PersonDto> Get()
         {
-            return _personRepository.GetAll();
+            return _personService.GetAll();
         }
 
         [HttpGet]
         [Route("{id}")]
-        public Person GetById(string id)
+        public PersonDto GetById(string id)
         {
-            return _personRepository.GetById(id);
+            return _personService.GetById(id);
         }
 
         [HttpPost]
         public async Task<IActionResult> InsertOne(Person entity)
         {
-            await _personRepository.InsertOneAsync(entity);
+            await _personService.InsertOneAsync(entity);
             return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity);
         }
 
         [HttpPost]
         [Route("Many")]
-        public async Task<List<Person>> InsertMany(IEnumerable<Person> entities)
+        public async Task<List<Person>> InsertMany(Person[] entities)
         {
-            return await _personRepository.InsertMany(entities);
+            return await _personService.InsertManyAsync(entities);
         }
 
         [HttpPut]
-        public async Task<Person> Upsert(Person entity)
+        public async Task<PersonDto> Upsert(Person entity)
         {
-            await _personRepository.UpsertAsync(entity);
-            return _personRepository.GetById(entity.Id);
+            await _personService.UpsertOneAsync(entity);
+            return _personService.GetById(entity.Id);
         }
 
         [HttpDelete("{id}")]
         public async Task<DeleteResult> Delete(string id)
         {
-            return await _personRepository.DeleteAsync(id);
+            return await _personService.DeleteOneAsync(id);
         }
     }
 }

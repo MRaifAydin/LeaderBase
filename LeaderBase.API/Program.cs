@@ -1,3 +1,5 @@
+using LeaderBase.Business.Abstract;
+using LeaderBase.Business.Concrete;
 using LeaderBase.Core.Common;
 using LeaderBase.Repository.Abstract;
 using LeaderBase.Repository.Concrete;
@@ -14,8 +16,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<LeaderBaseDbSettings>
     (builder.Configuration.GetSection("LeaderBaseDatabase"));
 
-builder.Services.AddSingleton<PersonRepository>();
-builder.Services.AddSingleton<LeaderRepository>();
+builder.Services.AddSingleton<IPersonRepository,PersonRepository>();
+builder.Services.AddSingleton<ILeaderRepository, LeaderRepository>();
+builder.Services.AddSingleton<ILeaderService, LeaderManager>();
+builder.Services.AddSingleton<IPersonService, PersonManager>();
 
 var app = builder.Build();
 

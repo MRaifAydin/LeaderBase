@@ -48,7 +48,8 @@ namespace LeaderBase.Repository.Common
         /// <summary>
         /// Returns all documents in a collection.
         /// </summary>
-        public List<TSource> GetAll() => _mongoCollection.Find(_ => true).ToList();
+        public IMongoQueryable<TSource> GetAll(Expression<Func<TSource, bool>> predicate) => _mongoCollection.AsQueryable().Where(predicate);
+
 
         /// <summary>
         /// Returns a specified document in a collection by id.

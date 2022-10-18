@@ -1,5 +1,7 @@
-﻿using LeaderBase.Core.Entities;
+﻿using LeaderBase.Business.Abstract;
+using LeaderBase.Core.Entities;
 using LeaderBase.DTO.Leaders;
+using LeaderBase.Repository.Abstract;
 using LeaderBase.Repository.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,48 +13,49 @@ namespace LeaderBase.API.Controllers
     [ApiController]
     public class LeadersController : ControllerBase
     {
-        private readonly LeaderRepository _leaderRepository;
+        private readonly ILeaderService _leaderService;
 
-        public LeadersController(LeaderRepository leaderRepository)
+        public LeadersController(ILeaderService leaderService)
         {
-            _leaderRepository = leaderRepository;
+            _leaderService = leaderService;
         }
 
         [HttpGet]
-        public List<Leader> Get()
+        public List<LeaderDto> Get()
         {
-            return _leaderRepository.GetAll();
+            return _leaderService.GetAll();
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<LeaderDto> GetById(string id)
-        //{
-        //    return await _leaderRepository.GetLeaderDto(id);
-        //}
+        [HttpGet("{id}")]
+        public LeaderDto GetById(string id)
+        {
+            return _leaderService.GetById(id);
+        }
 
         [HttpPost]
-        public Task<Leader> InsertOne(Leader entity)
+        public async Task<Leader> InsertOne(Leader entity)
         {
-            return _leaderRepository.InsertOneAsync(entity);
+            return await _leaderService.InsertOneAsync(entity);
         }
 
         [HttpPost]
         [Route("Many")]
-        public Task<List<Leader>> InsertMany(List<Leader> entities)
+        public async Task<List<Leader>> InsertMany(List<Leader> entities)
         {
-            return _leaderRepository.InsertMany(entities);
+            return await _leaderService.InsertManyAsync(entities);
         }
 
         [HttpPut]
-        public Task<ReplaceOneResult> Update(Leader entity)
+        public async Task<LeaderDto> Update(Leader entity)
         {
-            return _leaderRepository.UpsertAsync(entity);
+            await _leaderService.UpsertOneAsync(entity);
+            return _leaderService.GetById(entity.Id);
         }
 
         [HttpDelete]
-        public Task<DeleteResult> Delete(string id)
+        public async Task<DeleteResult> Delete(string id)
         {
-            return _leaderRepository.DeleteAsync(id);
+            return await _leaderService.DeleteOneAsync(id);
         }
 
     }

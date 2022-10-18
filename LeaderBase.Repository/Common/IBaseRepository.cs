@@ -12,7 +12,7 @@ namespace LeaderBase.Repository.Common
 {
     public interface IBaseRepository<TSource> where TSource : BaseEntity
     {
-        List<TSource> GetAll();
+        IMongoQueryable<TSource> GetAll(Expression<Func<TSource, bool>> predicate);
 
         TSource GetById(string id);
 

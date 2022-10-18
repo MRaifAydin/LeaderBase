@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LeaderBase.Repository.Concrete
 {
-    public class LeaderRepository : BaseRepository<Leader>
+    public class LeaderRepository : BaseRepository<Leader>, ILeaderRepository
     {
         //private readonly IPersonRepository _personRepository;
         public LeaderRepository(IOptions<LeaderBaseDbSettings> _dbSettings) : base(_dbSettings)
