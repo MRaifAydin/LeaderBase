@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using LeaderBase.Core.Entities.Leader;
+using LeaderBase.Core.Utilities.Results;
 using LeaderBase.DTO.Leaders;
 using MongoDB.Driver;
 
@@ -12,16 +13,16 @@ namespace LeaderBase.Business.Abstract
 {
     public interface ILeaderService
     {
-        public List<LeaderDto> GetAll();
+        public IDataResult<List<LeaderDto>> GetAll();
 
-        public LeaderDto GetById(string id);
+        public IDataResult<LeaderDto> GetById(string id);
 
-        public Task<LeaderDto> InsertOneAsync(LeaderIO entity);
+        public IResult InsertOneAsync(LeaderIO entity);
 
-        public Task<List<LeaderDto>> InsertManyAsync(List<LeaderIO> entity);
+        public IResult InsertManyAsync(List<LeaderIO> entity);
 
-        public Task<ReplaceOneResult> UpsertOneAsync(Leader entity);
+        public IResult UpsertOneAsync(Leader entity);
 
-        public Task<DeleteResult> DeleteOneAsync(string id);
+        public IResult DeleteOneAsync(string id);
     }
 }

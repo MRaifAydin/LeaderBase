@@ -1,11 +1,14 @@
 ﻿using LeaderBase.Business.Abstract;
 using LeaderBase.Core.Entities.Leader;
+using LeaderBase.Core.Utilities.Results;
 using LeaderBase.DTO.Leaders;
 using LeaderBase.Repository.Abstract;
 using LeaderBase.Repository.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using MongoDB.Driver;
+using IResult = LeaderBase.Core.Utilities.Results.IResult;
 
 namespace LeaderBase.API.Controllers
 {
@@ -21,41 +24,40 @@ namespace LeaderBase.API.Controllers
         }
 
         [HttpGet]
-        public List<LeaderDto> Get()
+        public IDataResult<List<LeaderDto>> Get()
         {
             return _leaderService.GetAll();
         }
 
         [HttpGet("{id}")]
-        public LeaderDto GetById(string id)
+        public IDataResult<LeaderDto> GetById(string id)
         {
             return _leaderService.GetById(id);
         }
 
         [HttpPost]
-        public async Task<LeaderDto> InsertOne(LeaderIO entity)
+        public IResult InsertOne(LeaderIO entity)
         {
-            return await _leaderService.InsertOneAsync(entity);
+            return _leaderService.InsertOneAsync(entity);
         }
 
         [HttpPost]
         [Route("Many")]
-        public async Task<List<LeaderDto>> InsertMany(List<LeaderIO> entities)
+        public IResult InsertMany(List<LeaderIO> entities)
         {
-            return await _leaderService.InsertManyAsync(entities);
+            return _leaderService.InsertManyAsync(entities);
         }
 
         [HttpPut]
-        public async Task<LeaderDto> Update(Leader entity)
+        public IResult Update(Leader entity)
         {
-            await _leaderService.UpsertOneAsync(entity);
-            return _leaderService.GetById(entity.Id);
+            return _leaderService.UpsertOneAsync(entity);
         }
 
         [HttpDelete]
-        public async Task<DeleteResult> Delete(string id)
+        public IResult Delete(string id)
         {
-            return await _leaderService.DeleteOneAsync(id);
+            return _leaderService.DeleteOneAsync(id);
         }
 
     }

@@ -1,10 +1,12 @@
 ﻿using LeaderBase.Business.Abstract;
 using LeaderBase.Conversion;
 using LeaderBase.Core.Entities.Leader;
+using LeaderBase.Core.Utilities.Results;
 using LeaderBase.DTO.Leaders;
 using LeaderBase.DTO.Persons;
 using LeaderBase.Repository.Abstract;
 using MongoDB.Driver;
+using SharpCompress.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,52 +27,59 @@ namespace LeaderBase.Business.Concrete
             _leaderRepository = leaderRepository;
         }
 
+        private LeaderDto FillEntity(Leader leader)
+        {
+            LeaderDto response = leader.Map<LeaderDto>();
+            response.Father = _personRepository.GetById(leader.FatherId).Map<PersonDto>();
+            response.Mother = _personRepository.GetById(leader.MotherId).Map<PersonDto>();
+            response.Kids = leader.KidsIds.Select(person => _personRepository.GetById(person).Map<PersonDto>()).ToList();
+            response.Spouses = leader.SpousesIds.Select(person => _personRepository.GetById(person).Map<PersonDto>()).ToList();
+            return response;
+        }
 
-
-        public List<LeaderDto> GetAll()
+        public IDataResult<List<LeaderDto>> GetAll()
         {
             List<Leader> entities = _leaderRepository.GetAll(_ => true).ToList();
 
-            return entities.Select(entity => GetById(entity.Id)).ToList();
+            var response = entities.Select(entity => FillEntity(entity)).ToList();
 
+            return new SuccessDataResult<List<LeaderDto>>(response);
         }
 
-        public LeaderDto GetById(string id)
+        public IDataResult<LeaderDto> GetById(string id)
         {
             var entity = _leaderRepository.GetById(id);
 
-            LeaderDto leader = entity.Map<LeaderDto>();
+            LeaderDto leader = FillEntity(entity);
 
-            leader.Father = _personRepository.GetById(entity.FatherId).Map<PersonDto>();
-            leader.Mother = _personRepository.GetById(entity.MotherId).Map<PersonDto>();
-            leader.Kids = entity.KidsIds.Select(person => _personRepository.GetById(person).Map<PersonDto>()).ToList();
-            leader.Spouses = entity.SpousesIds.Select(person => _personRepository.GetById(person).Map<PersonDto>()).ToList();
-
-            return leader;
+            return new SuccessDataResult<LeaderDto>(leader);
         }
 
-        public async Task<LeaderDto> InsertOneAsync(LeaderIO entity)
+        public IResult InsertOneAsync(LeaderIO entity)
         {
             Leader insertObject = entity.Map<Leader>();
-            await _leaderRepository.InsertOneAsync(insertObject);
-            return GetById(insertObject.Id);
+            _leaderRepository.InsertOneAsync(insertObject);
+            return new SuccessResult(message: "Leader added.");
         }
 
-        public async Task<List<LeaderDto>> InsertManyAsync(List<LeaderIO> entity)
+        public IResult InsertManyAsync(List<LeaderIO> entity)
         {
             var insertObjects = entity.Select(x => x.Map<Leader>()).ToList();
-            await _leaderRepository.InsertMany(insertObjects);
-            return insertObjects.Select(x => GetById(x.Id)).ToList();
+            _leaderRepository.InsertMany(insertObjects);
+
+            return new SuccessResult(message: "Leaders added.");
         }
 
-        public Task<ReplaceOneResult> UpsertOneAsync(Leader entity)
+        public IResult UpsertOneAsync(Leader entity)
         {
-            return _leaderRepository.UpsertAsync(entity);
+            _leaderRepository.UpsertAsync(entity);
+            return new SuccessResult(message: "Leader upserted.");
         }
 
-        public Task<DeleteResult> DeleteOneAsync(string id)
+        public IResult DeleteOneAsync(string id)
         {
-            return _leaderRepository.DeleteAsync(id);
+            _leaderRepository.DeleteAsync(id);
+            return new SuccessResult(message: "Leader deleted.");
         }
     }
 }
