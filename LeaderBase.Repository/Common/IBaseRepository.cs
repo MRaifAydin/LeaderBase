@@ -18,11 +18,10 @@ namespace LeaderBase.Repository.Common
 
 
         Task<TSource> InsertOneAsync(TSource entity);
-        Task<List<TSource>> InsertMany(IEnumerable<TSource> entity);
+        Task<List<TSource>> InsertMany(List<TSource> entity);
 
         Task<ReplaceOneResult> UpsertAsync(TSource entity);
 
         Task<DeleteResult> DeleteAsync(string id);
-        //Task<UpdateResult> DeleteAsync(Expression<Func<TSource, bool>> predicate);
     }
 }

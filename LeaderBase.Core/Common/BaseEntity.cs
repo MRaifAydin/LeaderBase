@@ -27,6 +27,6 @@ namespace LeaderBase.Core.Common
         public string? LastModifiedBy { get; set; }
 
         [BsonRepresentation(BsonType.Boolean)]
-        public bool IsDeleted { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 }

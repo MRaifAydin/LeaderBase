@@ -1,5 +1,5 @@
 ﻿using LeaderBase.Core.Common;
-using LeaderBase.Core.Entities;
+using LeaderBase.Core.Entities.Leader;
 using LeaderBase.DTO.Leaders;
 using LeaderBase.Repository.Abstract;
 using LeaderBase.Repository.Common;

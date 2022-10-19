@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using LeaderBase.Core.Entities;
+using LeaderBase.Core.Entities.Leader;
 using LeaderBase.DTO.Leaders;
 using MongoDB.Driver;
 
@@ -16,9 +16,9 @@ namespace LeaderBase.Business.Abstract
 
         public LeaderDto GetById(string id);
 
-        public Task<Leader> InsertOneAsync(Leader entity);
+        public Task<LeaderDto> InsertOneAsync(LeaderIO entity);
 
-        public Task<List<Leader>> InsertManyAsync(IEnumerable<Leader> entity);
+        public Task<List<LeaderDto>> InsertManyAsync(List<LeaderIO> entity);
 
         public Task<ReplaceOneResult> UpsertOneAsync(Leader entity);
 

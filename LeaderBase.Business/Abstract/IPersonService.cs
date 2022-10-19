@@ -1,4 +1,4 @@
-﻿using LeaderBase.Core.Entities;
+﻿using LeaderBase.Core.Entities.Person;
 using LeaderBase.DTO.Persons;
 using MongoDB.Driver;
 using System;
@@ -15,9 +15,9 @@ namespace LeaderBase.Business.Abstract
 
         public PersonDto GetById(string id);
 
-        public Task<Person> InsertOneAsync(Person entity);
+        public Task<PersonDto> InsertOneAsync(PersonIO entity);
 
-        public Task<List<Person>> InsertManyAsync(Person[] entity);
+        public Task<List<PersonDto>> InsertManyAsync(List<PersonIO> entity);
 
         public Task<ReplaceOneResult> UpsertOneAsync(Person entity);
 

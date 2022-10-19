@@ -1,4 +1,4 @@
-﻿using LeaderBase.Core.Entities;
+﻿using LeaderBase.Core.Entities.Leader;
 using LeaderBase.Repository.Common;
 using System;
 using System.Collections.Generic;

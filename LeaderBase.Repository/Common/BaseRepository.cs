@@ -66,13 +66,13 @@ namespace LeaderBase.Repository.Common
         public async Task<TSource> InsertOneAsync(TSource entity)
         {
             await _mongoCollection.InsertOneAsync(FillEntity(entity));
-            return GetById(entity.Id);
+            return entity;
         }
 
-        public async Task<List<TSource>> InsertMany(IEnumerable<TSource> entities)
+        public async Task<List<TSource>> InsertMany(List<TSource> entities)
         {
             await _mongoCollection.InsertManyAsync(FillEntities(entities));
-            return entities.Select(entity => GetById(entity.Id)).ToList();
+            return entities;
         }
 
         public Task<ReplaceOneResult> UpsertAsync(TSource entity)

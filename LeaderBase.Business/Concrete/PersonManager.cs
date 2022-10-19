@@ -1,5 +1,6 @@
 ﻿using LeaderBase.Business.Abstract;
-using LeaderBase.Core.Entities;
+using LeaderBase.Conversion;
+using LeaderBase.Core.Entities.Person;
 using LeaderBase.DTO.Persons;
 using LeaderBase.Repository.Abstract;
 using MongoDB.Driver;
@@ -30,25 +31,22 @@ namespace LeaderBase.Business.Concrete
         {
             var entity = _personRepository.GetById(id);
 
-            PersonDto person = new PersonDto
-            {
-                Id = entity.Id,
-                Name = entity.Name,
-                DateOfBirth = entity.DateOfBirth,
-                PlaceOfBirth = entity.PlaceOfBirth,
-                Nationality = entity.Nationality
-            };
+            PersonDto person = entity.Map<PersonDto>();
             return person;
         }
 
-        public Task<Person> InsertOneAsync(Person entity)
+        public async Task<PersonDto> InsertOneAsync(PersonIO entity)
         {
-            return _personRepository.InsertOneAsync(entity);
+            var insertObject = entity.Map<Person>();
+            await _personRepository.InsertOneAsync(insertObject);
+            return GetById(insertObject.Id);
         }
 
-        public Task<List<Person>> InsertManyAsync(Person[] entity)
+        public async Task<List<PersonDto>> InsertManyAsync(List<PersonIO> entity)
         {
-            return _personRepository.InsertMany(entity);
+            var insertObjects = entity.Select(x => x.Map<Person>()).ToList();
+            insertObjects = await _personRepository.InsertMany(insertObjects);
+            return insertObjects.Select(x => GetById(x.Id).Map<PersonDto>()).ToList();
         }
 
         public Task<ReplaceOneResult> UpsertOneAsync(Person entity)

@@ -1,4 +1,5 @@
 ﻿using LeaderBase.Core.Entities;
+using LeaderBase.DTO.Persons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,9 @@ namespace LeaderBase.DTO.Leaders
         public DateTime DateOfDeath { get; set; }
         public string PlaceOfBirth { get; set; }
         public string PlaceOfDeath { get; set; }
-        public List<Person> Spouses { get; set; }
-        public List<Person> Kids { get; set; }
-        public Person Father { get; set; }
-        public Person Mother { get; set; }
+        public List<PersonDto> Spouses { get; set; }
+        public List<PersonDto> Kids { get; set; }
+        public PersonDto Father { get; set; }
+        public PersonDto Mother { get; set; }
     }
 }

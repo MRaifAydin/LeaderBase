@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace LeaderBase.Core.Common
 {
-    public class ServiceLocater
+    public static class ServiceLocator
     {
-
         private static IServiceProvider _serviceProvider;
 
         public static void InjectServiceProvider(IServiceProvider serviceProvider)

@@ -1,5 +1,5 @@
 ﻿using LeaderBase.Business.Abstract;
-using LeaderBase.Core.Entities;
+using LeaderBase.Core.Entities.Person;
 using LeaderBase.DTO.Persons;
 using LeaderBase.Repository.Abstract;
 using LeaderBase.Repository.Concrete;
@@ -34,15 +34,14 @@ namespace LeaderBase.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertOne(Person entity)
+        public async Task<PersonDto> InsertOne(PersonIO entity)
         {
-            await _personService.InsertOneAsync(entity);
-            return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity);
+            return await _personService.InsertOneAsync(entity);
         }
 
         [HttpPost]
         [Route("Many")]
-        public async Task<List<Person>> InsertMany(Person[] entities)
+        public async Task<List<PersonDto>> InsertMany(List<PersonIO> entities)
         {
             return await _personService.InsertManyAsync(entities);
         }

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LeaderBase.Core.Entities;
+using LeaderBase.Core.Entities.Leader;
 using LeaderBase.DTO.Leaders;
 using System;
 using System.Collections.Generic;
@@ -19,6 +19,8 @@ namespace LeaderBase.Conversion.MapperProfiles
                 .ForMember(x => x.Father, opt => opt.Ignore())
                 .ForMember(x => x.Mother, opt => opt.Ignore())
                 .ReverseMap();
+
+            CreateMap<Leader, LeaderIO>().ReverseMap();
         }
     }
 }

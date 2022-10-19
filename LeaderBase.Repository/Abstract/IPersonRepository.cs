@@ -1,5 +1,5 @@
 ﻿using LeaderBase.Core.Common;
-using LeaderBase.Core.Entities;
+using LeaderBase.Core.Entities.Person;
 using LeaderBase.Repository.Common;
 using System;
 using System.Collections.Generic;

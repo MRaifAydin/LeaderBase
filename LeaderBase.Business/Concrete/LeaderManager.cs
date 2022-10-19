@@ -1,6 +1,8 @@
 ﻿using LeaderBase.Business.Abstract;
-using LeaderBase.Core.Entities;
+using LeaderBase.Conversion;
+using LeaderBase.Core.Entities.Leader;
 using LeaderBase.DTO.Leaders;
+using LeaderBase.DTO.Persons;
 using LeaderBase.Repository.Abstract;
 using MongoDB.Driver;
 using System;
@@ -37,32 +39,28 @@ namespace LeaderBase.Business.Concrete
         {
             var entity = _leaderRepository.GetById(id);
 
-            LeaderDto leader = new LeaderDto
-            {
-                Id = entity.Id,
-                Name = entity.Name,
-                DateOfBirth = entity.DateOfBirth,
-                DateOfDeath = entity.DateOfDeath,
-                PlaceOfBirth = entity.PlaceOfBirth,
-                PlaceOfDeath = entity.PlaceOfDeath,
-                Father = _personRepository.GetById(entity.FatherId),
-                Mother = _personRepository.GetById(entity.MotherId),
-                Kids = entity.KidsIds.Select(person => _personRepository.GetById(person)).ToList(),
-                Spouses = entity.SpousesIds.Select(person => _personRepository.GetById(person)).ToList()
-            };
+            LeaderDto leader = entity.Map<LeaderDto>();
+
+            leader.Father = _personRepository.GetById(entity.FatherId).Map<PersonDto>();
+            leader.Mother = _personRepository.GetById(entity.MotherId).Map<PersonDto>();
+            leader.Kids = entity.KidsIds.Select(person => _personRepository.GetById(person).Map<PersonDto>()).ToList();
+            leader.Spouses = entity.SpousesIds.Select(person => _personRepository.GetById(person).Map<PersonDto>()).ToList();
 
             return leader;
-
         }
 
-        public async Task<Leader> InsertOneAsync(Leader entity)
+        public async Task<LeaderDto> InsertOneAsync(LeaderIO entity)
         {
-            return await _leaderRepository.InsertOneAsync(entity);
+            Leader insertObject = entity.Map<Leader>();
+            await _leaderRepository.InsertOneAsync(insertObject);
+            return GetById(insertObject.Id);
         }
 
-        public async Task<List<Leader>> InsertManyAsync(IEnumerable<Leader> entity)
+        public async Task<List<LeaderDto>> InsertManyAsync(List<LeaderIO> entity)
         {
-            return await _leaderRepository.InsertMany(entity);
+            var insertObjects = entity.Select(x => x.Map<Leader>()).ToList();
+            await _leaderRepository.InsertMany(insertObjects);
+            return insertObjects.Select(x => GetById(x.Id)).ToList();
         }
 
         public Task<ReplaceOneResult> UpsertOneAsync(Leader entity)
