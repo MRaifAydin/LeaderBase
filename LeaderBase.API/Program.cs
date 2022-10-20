@@ -1,6 +1,10 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using LeaderBase.Business;
 using LeaderBase.Business.Abstract;
 using LeaderBase.Business.Concrete;
+using LeaderBase.Business.DependecyResolvers.Autofac;
+using LeaderBase.Conversion;
 using LeaderBase.Core.Common;
 using LeaderBase.Repository.Abstract;
 using LeaderBase.Repository.Concrete;
@@ -15,11 +19,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.Configure<LeaderBaseDbSettings>
     (builder.Configuration.GetSection("LeaderBaseDatabase"));
 
-BusinessDIModule.Inject(builder.Services, builder.Configuration);
+//BusinessDIModule.Inject(builder.Services, builder.Configuration);
 
+ConversionDIModule.Inject(builder.Services, builder.Configuration);
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+{
+    builder.RegisterModule(new AutofacBusinessModule());
+});
 
 var app = builder.Build();
 
@@ -31,6 +44,8 @@ if (app.Environment.IsDevelopment())
 }
 
 ServiceLocator.InjectServiceProvider(app.Services);
+
+
 
 app.UseHttpsRedirection();
 
