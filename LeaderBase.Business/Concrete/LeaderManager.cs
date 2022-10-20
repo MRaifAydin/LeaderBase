@@ -1,6 +1,7 @@
 ﻿using LeaderBase.Business.Abstract;
 using LeaderBase.Conversion;
 using LeaderBase.Core.Entities.Leader;
+using LeaderBase.Core.Utilities.Constants;
 using LeaderBase.Core.Utilities.Results;
 using LeaderBase.DTO.Leaders;
 using LeaderBase.DTO.Persons;
@@ -59,7 +60,7 @@ namespace LeaderBase.Business.Concrete
         {
             Leader insertObject = entity.Map<Leader>();
             _leaderRepository.InsertOneAsync(insertObject);
-            return new SuccessResult(message: "Leader added.");
+            return new SuccessResult(Message.EntityAdded);
         }
 
         public IResult InsertManyAsync(List<LeaderIO> entity)
@@ -67,19 +68,19 @@ namespace LeaderBase.Business.Concrete
             var insertObjects = entity.Select(x => x.Map<Leader>()).ToList();
             _leaderRepository.InsertMany(insertObjects);
 
-            return new SuccessResult(message: "Leaders added.");
+            return new SuccessResult(Message.EntityAdded);
         }
 
         public IResult UpsertOneAsync(Leader entity)
         {
             _leaderRepository.UpsertAsync(entity);
-            return new SuccessResult(message: "Leader upserted.");
+            return new SuccessResult(Message.EntityUpserted);
         }
 
         public IResult DeleteOneAsync(string id)
         {
             _leaderRepository.DeleteAsync(id);
-            return new SuccessResult(message: "Leader deleted.");
+            return new SuccessResult(Message.EntityDeleted);
         }
     }
 }
