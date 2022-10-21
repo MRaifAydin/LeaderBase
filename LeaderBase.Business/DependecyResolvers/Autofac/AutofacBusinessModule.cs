@@ -29,6 +29,10 @@ namespace LeaderBase.Business.DependecyResolvers.Autofac
             builder.RegisterType<LeaderRepository>().As<ILeaderRepository>();
             builder.RegisterType<PersonRepository>().As<IPersonRepository>();
 
+            builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<OperationClaimManager>().As<IOperationClaimService>();
+            builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>();
+
             builder.RegisterType<UserRepository>().As<IUserRepository>();
             builder.RegisterType<OperationClaimRepository>().As<IOperationClaimRepository>();
             builder.RegisterType<UserOperationClaimRepository>().As<IUserOperationClaimRepository>();
