@@ -5,8 +5,10 @@ using CommonServiceLocator;
 using LeaderBase.Business.Abstract;
 using LeaderBase.Business.Concrete;
 using LeaderBase.Conversion.MapperProfiles;
-using LeaderBase.Repository.Abstract;
-using LeaderBase.Repository.Concrete;
+using LeaderBase.Repository.MongoDB.Abstract;
+using LeaderBase.Repository.MongoDB.Concrete;
+using LeaderBase.Repository.PostgreSQL.Abstract;
+using LeaderBase.Repository.PostgreSQL.Concrete;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -26,6 +28,10 @@ namespace LeaderBase.Business.DependecyResolvers.Autofac
 
             builder.RegisterType<LeaderRepository>().As<ILeaderRepository>();
             builder.RegisterType<PersonRepository>().As<IPersonRepository>();
+
+            builder.RegisterType<UserRepository>().As<IUserRepository>();
+            builder.RegisterType<OperationClaimRepository>().As<IOperationClaimRepository>();
+            builder.RegisterType<UserOperationClaimRepository>().As<IUserOperationClaimRepository>();
 
         }
 

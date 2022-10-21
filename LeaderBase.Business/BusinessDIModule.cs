@@ -1,7 +1,7 @@
 ﻿using LeaderBase.Business.Abstract;
 using LeaderBase.Business.Concrete;
 using LeaderBase.Conversion;
-using LeaderBase.Repository;
+using LeaderBase.Repository.MongoDB;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;

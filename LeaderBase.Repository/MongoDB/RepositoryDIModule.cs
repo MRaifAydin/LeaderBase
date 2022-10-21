@@ -1,5 +1,6 @@
-﻿using LeaderBase.Repository.Abstract;
-using LeaderBase.Repository.Concrete;
+﻿
+using LeaderBase.Repository.MongoDB.Abstract;
+using LeaderBase.Repository.MongoDB.Concrete;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeaderBase.Repository
+namespace LeaderBase.Repository.MongoDB
 {
     public static class RepositoryDIModule
     {

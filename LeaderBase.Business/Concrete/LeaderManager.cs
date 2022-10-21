@@ -5,7 +5,7 @@ using LeaderBase.Core.Utilities.Constants;
 using LeaderBase.Core.Utilities.Results;
 using LeaderBase.DTO.Leaders;
 using LeaderBase.DTO.Persons;
-using LeaderBase.Repository.Abstract;
+using LeaderBase.Repository.MongoDB.Abstract;
 using MongoDB.Driver;
 using SharpCompress.Common;
 using System;

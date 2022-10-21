@@ -2,8 +2,6 @@
 using LeaderBase.Core.Entities.Leader;
 using LeaderBase.Core.Utilities.Results;
 using LeaderBase.DTO.Leaders;
-using LeaderBase.Repository.Abstract;
-using LeaderBase.Repository.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

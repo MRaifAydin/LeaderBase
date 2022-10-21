@@ -2,7 +2,7 @@
 using LeaderBase.Conversion;
 using LeaderBase.Core.Entities.Person;
 using LeaderBase.DTO.Persons;
-using LeaderBase.Repository.Abstract;
+using LeaderBase.Repository.MongoDB.Abstract;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;

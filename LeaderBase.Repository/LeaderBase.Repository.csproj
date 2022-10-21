@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.17.1" />
@@ -15,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LeaderBase.Core\LeaderBase.Core.csproj" />
+    <ProjectReference Include="..\LeaderBase.DataAccess\LeaderBase.DataAccess.csproj" />
     <ProjectReference Include="..\LeaderBase.Dto\LeaderBase.DTO.csproj" />
   </ItemGroup>
 

@@ -6,8 +6,8 @@ using LeaderBase.Business.Concrete;
 using LeaderBase.Business.DependecyResolvers.Autofac;
 using LeaderBase.Conversion;
 using LeaderBase.Core.Common;
-using LeaderBase.Repository.Abstract;
-using LeaderBase.Repository.Concrete;
+using LeaderBase.DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -22,6 +22,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<LeaderBaseDbSettings>
     (builder.Configuration.GetSection("LeaderBaseDatabase"));
+
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 
 //BusinessDIModule.Inject(builder.Services, builder.Configuration);
 

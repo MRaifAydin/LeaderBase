@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeaderBase.Repository.Common
+namespace LeaderBase.Repository.MongoDB.Common
 {
     public interface IBaseRepository<TSource> where TSource : BaseEntity
     {

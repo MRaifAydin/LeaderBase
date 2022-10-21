@@ -1,8 +1,6 @@
 ﻿using LeaderBase.Business.Abstract;
 using LeaderBase.Core.Entities.Person;
 using LeaderBase.DTO.Persons;
-using LeaderBase.Repository.Abstract;
-using LeaderBase.Repository.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
