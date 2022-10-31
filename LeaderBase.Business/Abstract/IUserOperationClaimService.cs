@@ -11,7 +11,7 @@ namespace LeaderBase.Business.Abstract
     public interface IUserOperationClaimService
     {
         public List<UserOperationClaimDto> GetAll();
-        public UserOperationClaimDto Get(int id);
+        public UserOperationClaimDto GetById(int id);
         public void InsertOneAsync(UserOperationClaim entity);
         public void UpdateAsync(UserOperationClaim entity);
         public void DeleteAsync(int id);

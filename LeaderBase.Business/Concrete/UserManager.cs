@@ -1,10 +1,13 @@
 ﻿using LeaderBase.Business.Abstract;
 using LeaderBase.Core.Entities.PostgreSQL.Authentication;
+using LeaderBase.Core.Utilities.Constants;
+using LeaderBase.Core.Utilities.Results;
 using LeaderBase.Repository.PostgreSQL.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace LeaderBase.Business.Concrete
@@ -22,9 +25,14 @@ namespace LeaderBase.Business.Concrete
             return _userRepository.GetAll();
         }
 
-        public User Get(int id)
+        public User GetById(int id)
         {
-            return _userRepository.Get(id);
+            return _userRepository.Get(x => x.Id == id).FirstOrDefault();
+        }
+
+        public User GetByEmail(string email)
+        {
+            return _userRepository.Get(x => x.Email == email).FirstOrDefault();
         }
 
         public void InsertOneAsync(User entity)

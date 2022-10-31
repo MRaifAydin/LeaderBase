@@ -25,22 +25,22 @@ namespace LeaderBase.Business.Concrete
 
         UserOperationClaimDto FillEntity(UserOperationClaim entity)
         {
-            UserOperationClaimDto response = default;
-            response.User = _userRepository.Get(entity.UserId);
-            response.OperationClaim = _operationClaimRepository.Get(entity.OperationClaimId);
+            UserOperationClaimDto response = new UserOperationClaimDto();
+            response.User = _userRepository.Get(x => x.Id == entity.UserId).FirstOrDefault();
+            response.OperationClaim.Add(_operationClaimRepository.Get(x => x.Id == entity.OperationClaimId).FirstOrDefault());
             return response;
         }
 
         public List<UserOperationClaimDto> GetAll()
         {
             var entities = _userOperationClaimRepository.GetAll().ToList();
-            var response = entities.Select(x => Get(x.Id)).ToList();
+            var response = entities.Select(x => GetById(x.Id)).ToList();
             return response;
         }
 
-        public UserOperationClaimDto Get(int id)
+        public UserOperationClaimDto GetById(int id)
         {
-            UserOperationClaim entity = _userOperationClaimRepository.Get(id);
+            UserOperationClaim entity = _userOperationClaimRepository.Get(x => x.Id == id).FirstOrDefault();
             return FillEntity(entity);
         }
 

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +22,11 @@ namespace LeaderBase.Repository.PostgreSQL.Common
         {
             this.context = context;
         }
+
+        //public DbSet<Type> Table()
+        //{
+        //    return Table<Type>();
+        //}
 
         TSource FillEntity(TSource entity)
         {
@@ -38,34 +44,34 @@ namespace LeaderBase.Repository.PostgreSQL.Common
             return entity;
         }
 
-        public TSource Get(int id)
+        public IQueryable<TSource> Get(Expression<Func<TSource, bool>> predicate)
         {
-            return entities.FirstOrDefault(x => x.Id == id);
+            return context.Set<TSource>().Where(predicate);
         }
 
         public IQueryable<TSource> GetAll()
         {
-            return entities.AsQueryable();
+            return context.Set<TSource>().AsQueryable();
         }
 
         public async void InsertOneAsync(TSource entity)
         {
             entity = FillEntity(entity);
-            await entities.AddAsync(entity);
+            await context.Set<TSource>().AddAsync(entity);
             context.SaveChanges();
         }
 
         public async void UpdateAsync(TSource entity)
         {
             entity = FillEntity(entity);
-            entities.Update(entity);
+            context.Set<TSource>().Update(entity);
             context.SaveChanges();
         }
 
         public void DeleteAsync(int id)
         {
-            var entity = Get(id);
-            entities.Remove(entity);
+            var entity = Get(x => x.Id == id);
+            context.Set<TSource>().Remove(entity.FirstOrDefault());
             context.SaveChanges();
         }
     }

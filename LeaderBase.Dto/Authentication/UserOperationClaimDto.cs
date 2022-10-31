@@ -10,6 +10,6 @@ namespace LeaderBase.DTO.Authentication
     public class UserOperationClaimDto
     {
         public User User { get; set; }
-        public OperationClaim OperationClaim { get; set; }
+        public List<OperationClaim> OperationClaim { get; set; }
     }
 }

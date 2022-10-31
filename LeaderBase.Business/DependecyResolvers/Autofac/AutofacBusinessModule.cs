@@ -5,6 +5,7 @@ using CommonServiceLocator;
 using LeaderBase.Business.Abstract;
 using LeaderBase.Business.Concrete;
 using LeaderBase.Conversion.MapperProfiles;
+using LeaderBase.Core.Utilities.Security.JWT;
 using LeaderBase.Repository.MongoDB.Abstract;
 using LeaderBase.Repository.MongoDB.Concrete;
 using LeaderBase.Repository.PostgreSQL.Abstract;
@@ -36,6 +37,10 @@ namespace LeaderBase.Business.DependecyResolvers.Autofac
             builder.RegisterType<UserRepository>().As<IUserRepository>();
             builder.RegisterType<OperationClaimRepository>().As<IOperationClaimRepository>();
             builder.RegisterType<UserOperationClaimRepository>().As<IUserOperationClaimRepository>();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+
 
         }
 

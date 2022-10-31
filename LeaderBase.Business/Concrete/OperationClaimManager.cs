@@ -24,7 +24,7 @@ namespace LeaderBase.Business.Concrete
         }
         public OperationClaim Get(int id)
         {
-            return _operationClaimRepository.Get(id);
+            return _operationClaimRepository.Get(x => x.Id == id).FirstOrDefault();
         }
 
         public void InsertOneAsync(OperationClaim entity)
