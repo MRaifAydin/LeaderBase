@@ -6,10 +6,13 @@ using LeaderBase.Business.Concrete;
 using LeaderBase.Business.DependecyResolvers.Autofac;
 using LeaderBase.Conversion;
 using LeaderBase.Core.Common;
+using LeaderBase.DataAccess;
 using LeaderBase.Repository.Abstract;
 using LeaderBase.Repository.Concrete;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +31,8 @@ builder.Services.Configure<LeaderBaseDbSettings>
 ConversionDIModule.Inject(builder.Services, builder.Configuration);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Services.AddDbContext<UserDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 {
