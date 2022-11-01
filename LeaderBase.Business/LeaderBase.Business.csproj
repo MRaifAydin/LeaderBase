@@ -17,4 +17,8 @@
     <ProjectReference Include="..\LeaderBase.Repository\LeaderBase.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Auth\" />
+  </ItemGroup>
+
 </Project>

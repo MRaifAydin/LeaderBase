@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LeaderBase.Core\LeaderBase.Core.csproj" />
+    <ProjectReference Include="..\LeaderBase.DataAccess\LeaderBase.DataAccess.csproj" />
     <ProjectReference Include="..\LeaderBase.Dto\LeaderBase.DTO.csproj" />
   </ItemGroup>
 
