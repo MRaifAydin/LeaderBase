@@ -4,6 +4,7 @@ using LeaderBase.Core.Utilities.Results;
 using LeaderBase.DTO.Leaders;
 using LeaderBase.Repository.Abstract;
 using LeaderBase.Repository.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -23,7 +24,7 @@ namespace LeaderBase.API.Controllers
             _leaderService = leaderService;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Admin")]
         public IDataResult<List<LeaderDto>> Get()
         {
             return _leaderService.GetAll();

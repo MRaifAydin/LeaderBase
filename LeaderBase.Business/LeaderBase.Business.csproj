@@ -9,16 +9,14 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.4.0" />
     <PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="6.0.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LeaderBase.Conversion\LeaderBase.Conversion.csproj" />
     <ProjectReference Include="..\LeaderBase.Dto\LeaderBase.DTO.csproj" />
     <ProjectReference Include="..\LeaderBase.Repository\LeaderBase.Repository.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Auth\" />
   </ItemGroup>
 
 </Project>
